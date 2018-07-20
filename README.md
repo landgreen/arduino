@@ -1,3 +1,4 @@
 # arduino
 various arduino project files
-mostly learn how to use neopixles
+
+mostly learning how to use neopixles
