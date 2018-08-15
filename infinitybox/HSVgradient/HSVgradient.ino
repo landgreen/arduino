@@ -5,14 +5,14 @@
 #endif
 
 #define PIN 9
-#define NUM_LEDS 20 //gets a tiny bit hot at 64
+#define NUM_LEDS 147 //gets a tiny bit hot at 64
 #define BRIGHTNESS 100
 #define WAIT 50
 
 Adafruit_NeoPixel strip = Adafruit_NeoPixel(NUM_LEDS, PIN, NEO_GRB + NEO_KHZ800);
 
 void setup() {
-      Serial.begin(9600);
+  Serial.begin(9600);
   strip.setBrightness(BRIGHTNESS);
   strip.begin();
   for (int i = 0; i < NUM_LEDS; i++) {
