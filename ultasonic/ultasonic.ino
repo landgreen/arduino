@@ -8,7 +8,7 @@ const int echoPin = 10;
 const int  WAIT = 200;
 const int PIN = 6;           //pin for LEDS
 const int  NUM_LEDS = 147; 
-const int  BRIGHTNESS = 30;  // 0-100 LED brightness
+const int  BRIGHTNESS = 60;  // 0-100 LED brightness
 long duration;
 int distance;
 
@@ -59,7 +59,7 @@ void loop() {
   
   //draw pixels based on distance
   for (int i = 0; i < distance; i++) {
-    strip.setPixelColor(i, 255, 255,  255);
+    strip.setPixelColor(i, 0, 255,  255);
   }
   strip.show();
   delay(WAIT);

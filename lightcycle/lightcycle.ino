@@ -13,7 +13,7 @@ const int BRIGHTNESS = 30;     // 0-100 LED brightness
 int p1[2] = {8, -1};  //player location
 int p2[2] = {8, 16};   //player location
 int p1Input[2] = {0, 0};
-int p2Input[2] = { 0, 0};
+int p2Input[2] = {0, 0};
 int p1Velocity[2] = {0, -1};
 int p2Velocity[2] = {0, 1};
 bool isP1Move = true;
@@ -77,13 +77,13 @@ void loop() {
     //player moves extra if button is down
     if (!digitalRead(SWITCH_PIN_1)) {
       isP1Move = true;
-        Serial.print(1);
-        Serial.println();
+      Serial.print(1);
+      Serial.println();
     }
     if (!digitalRead(SWITCH_PIN_2)) {
       isP2Move = true;
-        Serial.print(2);
-        Serial.println();
+      Serial.print(2);
+      Serial.println();
     }
     if (isP1Move) P1Move();
     if (isP2Move) P2Move();
@@ -106,10 +106,10 @@ void updateGameState() {
 
 void playerJoystickInput() {
   //read input from game controllers
-  int p1x = -map(analogRead(0), 0, 1023, -3, 4);
-  int p1y = -map(analogRead(1), 0, 1023, -3, 4);
-  int p2x =  map(analogRead(2), 0, 1023, -3, 4);
-  int p2y =  map(analogRead(3), 0, 1023, -3, 4);
+  int p1x = map(analogRead(0), 0, 1023, -3, 4);
+  int p1y = map(analogRead(1), 0, 1023, -3, 4);
+  int p2x = map(analogRead(2), 0, 1023, -3, 4);
+  int p2y = map(analogRead(3), 0, 1023, -3, 4);
 
   // log the input if it is not zero
   if (!(p1x == 0 && p1y == 0)) {
@@ -212,8 +212,8 @@ void p1Wins() {
   if (isP1Move && on[p1[0]][p1[1]]) {
     tie();
   }
-//  Serial.println("p1/cyan wins!");
-//  GameStateDump();
+  //  Serial.println("p1/cyan wins!");
+  //  GameStateDump();
   strip.setBrightness(20);
   FillEmpty(0, 15, 15);
   ZigZagPixel(p2[0], p2[1], 255, 0, 0);
@@ -226,8 +226,8 @@ void p2Wins() {
   if (isP2Move && on[p2[0]][p2[1]]) {
     tie();
   }
-//  Serial.println("p2/pink, wins!");
-//  GameStateDump();
+  //  Serial.println("p2/pink, wins!");
+  //  GameStateDump();
   strip.setBrightness(20);
   FillEmpty(15, 0, 15);
   ZigZagPixel(p1[0], p1[1], 255, 0, 0);
@@ -236,8 +236,8 @@ void p2Wins() {
 }
 
 void tie() {
-//  Serial.println("tie game");
-//  GameStateDump();
+  //  Serial.println("tie game");
+  //  GameStateDump();
   strip.setBrightness(20);
   FillEmpty(15, 15, 15);
   ZigZagPixel(p1[0], p1[1], 255, 0, 0);
