@@ -17,10 +17,6 @@ void setup() {
   strip.show(); // Initialize all pixels to 'off'
 }
 
-
-// array that keeps track of colors
-int colors[NUM_LEDS][3];
-
 void loop() {
   // read the analog in value:
   sensorValue = analogRead(analogInPin);
@@ -31,26 +27,13 @@ void loop() {
   if (sensorValue < 60) {
     for (uint16_t i = 0; i < NUM_LEDS; i++) {
       //add red to pixel
-      colors[i][0] = 255;
-      //color decay
-      for (uint16_t i = 0; i < NUM_LEDS; i++) {
-        if (colors[i][0] > 0) colors[i][0]--;
-        if (colors[i][1] > 0) colors[i][1]--;
-        if (colors[i][2] > 0) colors[i][2]--;
-        strip.setPixelColor(i, colors[i][0], colors[i][1], colors[i][2]);
-      }
+      strip.setPixelColor(i, 255, 0, 0);
       strip.show();
       delay(WAIT);
     }
-  } else {
-    //just color decay
     for (uint16_t i = 0; i < NUM_LEDS; i++) {
-      for (uint16_t i = 0; i < NUM_LEDS; i++) {
-        if (colors[i][0] > 0) colors[i][0]--;
-        if (colors[i][1] > 0) colors[i][1]--;
-        if (colors[i][2] > 0) colors[i][2]--;
-      }
-      strip.setPixelColor(i, colors[i][0], colors[i][1], colors[i][2]);
+      //add red to pixel
+      strip.setPixelColor(i, 0, 0, 0);
       strip.show();
       delay(WAIT);
     }
