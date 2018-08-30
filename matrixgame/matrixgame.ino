@@ -1,3 +1,7 @@
+//
+//
+//
+//
 #include <Adafruit_NeoPixel.h>
 
 const int WAIT = 20;        // how many cycles to look for player joystick input
@@ -37,7 +41,6 @@ int p1_position[2] = {5, 5}; //player location x,y
 int p1_velocity[2] = {0, 0}; //player velocity x,y
 int p1_input[3] = {0, 0, 0}; //player key presses x,y,button down
 int p1_color[3] = {0, 150, 200};
-//int p1_bullets[4][2] = {{2, 5}, {5, 7}, {3, 7}, {5, 12}};
 
 // player 2
 int p2_position[2] = {11, 11}; //player location x,y
@@ -56,8 +59,8 @@ void loop()
   // draw player 1
   drawPlayer(p1_position[0], p1_position[1], p1_color);
   // draw player 2
-  drawPlayer(p2_position[0], p2_position[1], p2_color);
-
+  //  drawPlayer(p2_position[0], p2_position[1], p2_color);
+  drawCrossHairs(p2_position[0], p2_position[1], p2_color);
   strip.show();
   delay(WAIT);
 }
@@ -79,6 +82,18 @@ void drawPlayer(int x, int y, int color[3])
   ZigZagPixel(x + 1, y - 1, color[0], color[1], color[2]);
   ZigZagPixel(x, y - 1, color[0], color[1], color[2]);
   ZigZagPixel(x - 1, y - 1, color[0], color[1], color[2]);
+}
+
+void drawCrossHairs(int x, int y, int color[3])
+{
+  for (int i = 0; i < 16; ++i)
+  {
+    ZigZagPixel(i, y, color[0], color[1], color[2]);
+  }
+  for (int i = 0; i < 16; ++i)
+  {
+    ZigZagPixel(x, i, color[0], color[1], color[2]);
+  }
 }
 
 void playerMove()
