@@ -7,8 +7,8 @@ const int SWITCH_PIN_2 = 4;   // pin for P2 switch
 const int NUM_LEDS = 256;     // 16x16 = 256
 const int BRIGHTNESS = 30;     // 0-100 LED brightness
 
-//player 1 is cyan
-//player 2 is pink
+//player 1 is blue
+//player 2 is orange
 
 int p1[2] = {8, -1};  //player location
 int p2[2] = {8, 16};   //player location
@@ -58,8 +58,8 @@ void setup() {
   strip.begin();
   for (int i = 0; i < NUM_LEDS; i += 4) {
     for (int j = 0; j < 4; j++) {
-      strip.setPixelColor(i + j, 255, 0, 255);
-      strip.setPixelColor(NUM_LEDS - i - j, 0, 255, 255);
+      strip.setPixelColor(i + j, 255,50, 0);
+      strip.setPixelColor(NUM_LEDS - i - j, 0, 150, 200);
     }
     strip.show();
   }
@@ -212,11 +212,11 @@ void p1Wins() {
   if (isP1Move && on[p1[0]][p1[1]]) {
     tie();
   }
-  //  Serial.println("p1/cyan wins!");
+  //  Serial.println("p1/blue wins!");
   //  GameStateDump();
   strip.setBrightness(20);
-  FillEmpty(0, 15, 15);
-  ZigZagPixel(p2[0], p2[1], 255, 0, 0);
+  FillEmpty(0, 15, 20);
+  ZigZagPixel(p2[0], p2[1], 255, 255, 255);
   strip.show();
 
   endGame();
@@ -226,11 +226,11 @@ void p2Wins() {
   if (isP2Move && on[p2[0]][p2[1]]) {
     tie();
   }
-  //  Serial.println("p2/pink, wins!");
+  //  Serial.println("p2/orange, wins!");
   //  GameStateDump();
   strip.setBrightness(20);
-  FillEmpty(15, 0, 15);
-  ZigZagPixel(p1[0], p1[1], 255, 0, 0);
+  FillEmpty(25, 15, 0);
+  ZigZagPixel(p1[0], p1[1], 255, 255, 255);
   strip.show();
   endGame();
 }
@@ -240,15 +240,15 @@ void tie() {
   //  GameStateDump();
   strip.setBrightness(20);
   FillEmpty(15, 15, 15);
-  ZigZagPixel(p1[0], p1[1], 255, 0, 0);
+  ZigZagPixel(p1[0], p1[1], 255, 255,255);
   strip.show();
   endGame();
 }
 
 void drawPlayers() {
   //draw players
-  ZigZagPixel(p1[0], p1[1], 0, 255, 255);
-  ZigZagPixel(p2[0], p2[1], 255, 0, 255);
+  ZigZagPixel(p1[0], p1[1], 0, 150, 200);
+  ZigZagPixel(p2[0], p2[1], 255,50, 0);
   strip.show();
 }
 
