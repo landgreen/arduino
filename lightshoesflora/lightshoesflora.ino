@@ -1,9 +1,10 @@
 #include <Adafruit_NeoPixel.h>
 
-const int analogInPin = A9;  // Analog input pin that the potentiometer is attached to
+const int analogInPin = A11;  // Analog input pin that the potentiometer is attached to
 const int NUM_LEDS = 23;
-const int PIN  = 6;
+const int PIN  = 9;
 const int WAIT = 10;//5;
+const int THRESHOLD = 65;
 
 Adafruit_NeoPixel strip = Adafruit_NeoPixel(NUM_LEDS, PIN, NEO_GRB + NEO_KHZ800);
 
@@ -25,7 +26,7 @@ void loop() {
   Serial.print("sensor = " );
   Serial.println(sensorValue);
   // smoothing
-  stripLength = stripLength * 0.9  + (40 * NUM_LEDS / sensorValue - 11) * 0.1;
+  stripLength = stripLength * 0.9  + (THRESHOLD * NUM_LEDS / sensorValue - 11) * 0.1;
   // stripLength =  40* NUM_LEDS / sensorValue-11;
   Serial.print("striplength = " );
   Serial.println(stripLength);

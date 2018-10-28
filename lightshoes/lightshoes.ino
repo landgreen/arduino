@@ -1,7 +1,7 @@
 #include <Adafruit_NeoPixel.h>
 
-const int analogInPin = A0;  // Analog input pin that the potentiometer is attached to
-const int NUM_LEDS = 147;
+const int analogInPin = A10;  // Analog input pin that the potentiometer is attached to
+const int NUM_LEDS = 20;
 const int PIN  = 9;
 const int WAIT = 0;//5;
 

@@ -13,7 +13,7 @@ Adafruit_NeoPixel strip = Adafruit_NeoPixel(NUM_LEDS, PIN, NEO_GRB + NEO_KHZ800)
 int color[3] = {0, 0, 0};
 
 // Analog input pin that the Velostat is connected to
-const int ANALOG_IN_PIN = A0;
+const int ANALOG_IN_PIN = A10;
 int sensorValue = 0;
 int pressureThreshold = 65;
 float smoothSensorValue = 0;
