@@ -1,10 +1,11 @@
 #include <Adafruit_NeoPixel.h>
 
 const int analogInPin = A11;  // Analog input pin that the potentiometer is attached to
-const int NUM_LEDS = 23;
+const int NUM_LEDS = 30;
 const int PIN  = 9;
 const int WAIT = 10;
-const int THRESHOLD = 65;
+const int SENSITIVITY = 160;  // smaller means less lights,  bigger means more lights
+const int LED_OFFSET = 56;  // adjust this to remove LEDs that stay lit up after chaning sensitivity
 
 Adafruit_NeoPixel strip = Adafruit_NeoPixel(NUM_LEDS, PIN, NEO_GRB + NEO_KHZ800);
 
@@ -33,16 +34,15 @@ void fireColors() {
 
     // yellow spark
     if (random(400) == 0 ) {
-      color[i][1] = 150;
+      color[i][1] = 125;
     } else {
       //green fade out
-      if (color[i][1] > 10) {
-        color[i][1] -= 3;
+      if (color[i][1] > 1) {
+        color[i][1] -= 2;
       } else {
         color[i][1] = 0;
       }
     }
-
   }
 }
 
@@ -50,13 +50,11 @@ void loop() {
   // read the analog in value:
   sensorValue = analogRead(analogInPin);
   // print the results to the serial monitor:
-  // Serial.print("sensor = " );
-  // Serial.println(sensorValue);
+   Serial.print("sensor = " );
+   Serial.println(sensorValue);
 
   // smoothing
-  stripLength = stripLength * 0.9  + (THRESHOLD * NUM_LEDS / sensorValue - 11) * 0.1;
-
-  //  stripLength =  40* NUM_LEDS / sensorValue-11;
+  stripLength = stripLength * 0.9  + (SENSITIVITY * NUM_LEDS / sensorValue - LED_OFFSET) * 0.1;
   //  Serial.print("striplength = " );
   //  Serial.println(stripLength);
   //  stripLength = NUM_LEDS;//light up full strip for testing
