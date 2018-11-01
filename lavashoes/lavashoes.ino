@@ -1,27 +1,26 @@
 #include <Adafruit_NeoPixel.h>
 
-const int analogInPin = A11;  // Analog input pin that the potentiometer is attached to
-const int NUM_LEDS = 30;
+const int analogInPin = A11;  // A11 is called #12 on the Flora
+const int NUM_LEDS = 24; //30;
 const int PIN  = 9;
 const int WAIT = 10;
+// adjust SENSITIVITY first, then adjust LED_OFFSET until no LEDs light up with no pressure
 const int SENSITIVITY = 160;  // smaller means less lights,  bigger means more lights
-const int LED_OFFSET = 56;  // adjust this to remove LEDs that stay lit up after chaning sensitivity
+const int LED_OFFSET = 56;  // adjust this to remove LEDs that stay lit up after changing sensitivity
 
 Adafruit_NeoPixel strip = Adafruit_NeoPixel(NUM_LEDS, PIN, NEO_GRB + NEO_KHZ800);
 
-int sensorValue = 0;   // value read from the pot
+int sensorValue = 0;
 float stripLength = 0;
 int color[NUM_LEDS][3];
 
 void setup() {
-  // initialize serial communications at 9600 bps:
-  Serial.begin(9600);
+  // Serial.begin(9600);
   digitalWrite(analogInPin, HIGH);
   strip.begin();
-  strip.show(); // Initialize all pixels to 'off'
+  strip.show();
 
-
-  // set up colors array
+  // set up colors array as red
   for (uint16_t i = 0; i < NUM_LEDS; i++) {
     color[i][0] = 255;
     color[i][1] = 0;
@@ -29,62 +28,35 @@ void setup() {
   }
 }
 
-void fireColors() {
-  for (uint16_t i = 0; i < NUM_LEDS; i++) {
-
-    // yellow spark
-    if (random(400) == 0 ) {
-      color[i][1] = 125;
-    } else {
-      //green fade out
-      if (color[i][1] > 1) {
-        color[i][1] -= 2;
-      } else {
-        color[i][1] = 0;
-      }
-    }
-  }
-}
-
 void loop() {
   // read the analog in value:
   sensorValue = analogRead(analogInPin);
-  // print the results to the serial monitor:
-   Serial.print("sensor = " );
-   Serial.println(sensorValue);
+  // Serial.print("sensor = " );
+  // Serial.println(sensorValue);
 
-  // smoothing
+  // smooth the sensorValue and scale to number of LEDs
   stripLength = stripLength * 0.9  + (SENSITIVITY * NUM_LEDS / sensorValue - LED_OFFSET) * 0.1;
-  //  Serial.print("striplength = " );
-  //  Serial.println(stripLength);
   //  stripLength = NUM_LEDS;//light up full strip for testing
 
-  fireColors();
+  // green spark
+  for (uint16_t i = 0; i < NUM_LEDS; i++) {
+    if (random(400) == 0 ) {
+      color[i][1] = 125;
+    } else if (color[i][1] > 1) {
+      //green fade out
+      color[i][1] -= 2;
+    } else {
+      color[i][1] = 0;
+    }
+  }
+  //light up LEDs up to stripLength
   for (uint16_t i = 0; i < stripLength; i++) {
-    // lava colors
-    // strip.setPixelColor(i, 200+random(55), random(120),random(20));
     strip.setPixelColor(i, color[i][0], color[i][1], color[i][2]);
   }
+  //turn off the rest of the LEDs
   for (uint16_t i = stripLength; i < NUM_LEDS; i++) {
     strip.setPixelColor(i, 0, 0, 0);
   }
   strip.show();
   delay(WAIT);
-
-
-  // lights roll in and out when over threshold
-  //  if (sensorValue < 60) {
-  //    for (uint16_t i = 0; i < NUM_LEDS; i++) {
-  //      //add red to pixel
-  //      strip.setPixelColor(i, 255, 0, 0);
-  //      strip.show();
-  //      delay(WAIT);
-  //    }
-  //    for (uint16_t i = 0; i < NUM_LEDS; i++) {
-  //      //add red to pixel
-  //      strip.setPixelColor(i, 0, 0, 0);
-  //      strip.show();
-  //      delay(WAIT);
-  //    }
-  //  }
 }
