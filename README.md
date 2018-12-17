@@ -1,14 +1,8 @@
-# arduino project files
+# Landgreen arduino project files
 https://landgreen.github.io/projects/index.html
 
 
-Highlights:
+## Highlights:
+[Shoes](https://github.com/landgreen/arduino/tree/master/lavashoes) that light up when you step on the ground
 
-Shoes that light up when you step on the ground
-
-https://github.com/landgreen/arduino/tree/master/lavashoes
-
-
-2 player tron lightcycles game with game controllers and neopixel LED strips
-
-https://github.com/landgreen/arduino/tree/master/lightcycle
+2 player [tron](https://github.com/landgreen/arduino/tree/master/lightcycle) lightcycles game with game controllers and neopixel LED strips
