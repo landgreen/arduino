@@ -5,15 +5,18 @@
 #endif
 
 #define PIN 9
-#define NUM_LEDS 16
-#define BRIGHTNESS 20
+#define NUM_LEDS 137
+#define BRIGHTNESS 40
 
 Adafruit_NeoPixel strip = Adafruit_NeoPixel(NUM_LEDS, PIN, NEO_GRB + NEO_KHZ800);
 
 void setup() {
   strip.setBrightness(BRIGHTNESS);
   strip.begin();
-  strip.show(); // Initialize all pixels to 'off'
+    for (int i = 0; i < NUM_LEDS; i++) {
+        strip.setPixelColor(i, 255, 255, 255);
+    }
+strip.show(); // Initialize all pixels to 'off'
 }
 
 int pos = 0;
@@ -49,33 +52,7 @@ uint8_t wait = 30;
 
 // rainbow wave
 void loop() {
-  if (forward) {
-    pos++;
-    for (int i = 0; i < width; i++) {
-      if (i < width) {
-        strip.setPixelColor(pos - i, 255 -  i, i,  i);
-      } else {
-        strip.setPixelColor(pos - i, 255 - i, 255 - i, i);
-      }
-    }
-    if (pos > NUM_LEDS + width) {
-      forward = false;
-    }
-  } else {
-    pos--;
-    for (int i = 0; i < width; i++) {
-      if (i < width) {
-        strip.setPixelColor(pos - i, 255 - i,  i,  i);
-      } else {
-        strip.setPixelColor(pos - i, 255 - i, 255 - i, i);
-      }
-    }
-    if (pos < 0) {
-      forward = true;
-    }
-  }
-  strip.show();
-  delay(wait);
+
 }
 //
 //int countBinary = 0;
