@@ -5,9 +5,9 @@
 #endif
 
 #define PIN 9
-#define NUM_LEDS 20 //gets a tiny bit hot at 64
-#define BRIGHTNESS 100
-#define WAIT 50
+#define NUM_LEDS 157 //gets a tiny bit hot at 64
+#define BRIGHTNESS 20
+#define WAIT 120
 
 Adafruit_NeoPixel strip = Adafruit_NeoPixel(NUM_LEDS, PIN, NEO_GRB + NEO_KHZ800);
 
