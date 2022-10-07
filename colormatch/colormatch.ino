@@ -1,7 +1,4 @@
 /* todo
-color collision still isn't perfect
-  use R G B collision?
-    normalize brightness?
 
 make the color display a health meter that reduces after each wrong color match
 mount hardware on wood?  acrylic?
@@ -13,6 +10,7 @@ add color filters, diffraction gratings above parts of strip
 #include <RotaryEncoder.h>
 #define PIN_IN1 10
 #define PIN_IN2 9
+#define PIN_ROTARY_BUTTON 8
 RotaryEncoder encoder(PIN_IN1, PIN_IN2, RotaryEncoder::LatchMode::TWO03);
 
 #include <Adafruit_NeoPixel.h> //https://learn.adafruit.com/adafruit-neopixel-uberguide/arduino-library-use
@@ -46,11 +44,13 @@ void setup() {
   pinMode(PIN_R_BUTTON, INPUT);
   pinMode(PIN_G_BUTTON, INPUT);
   pinMode(PIN_B_BUTTON, INPUT);
+  pinMode(PIN_ROTARY_BUTTON, INPUT_PULLUP);
 }
 
 void loop() {
   cycle++;
   pixelTimer += PIXEL_GROW_RATE;
+  if (!digitalRead(PIN_ROTARY_BUTTON)) pixelTimer += PIXEL_GROW_RATE*10;
   colorCollision();
   colorInput();
   output_to_strip();
