@@ -5,7 +5,7 @@
 #endif
 
 #define PIN 9
-#define NUM_LEDS 19 //gets a tiny bit hot at 64
+#define NUM_LEDS 50 //gets a tiny bit hot at 64
 #define BRIGHTNESS 100
 #define WAIT 0
 

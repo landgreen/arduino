@@ -59,5 +59,5 @@ void loop() {
   bounce();
   grid[y][x] = 1;
   matrix.renderBitmap(grid, 8, 12);
-  delay(100);
+  delay(50);
 }

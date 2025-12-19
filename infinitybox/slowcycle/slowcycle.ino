@@ -16,7 +16,7 @@ void setup() {
   strip.setBrightness(BRIGHTNESS);
   strip.begin();
   for (int i = 0; i < NUM_LEDS; i++) {
-    strip.setPixelColor(i, 0, 0, 0);
+    strip.setPixelColor(i, 0, 255, 0);
   }
   strip.show(); // Initialize all pixels to 'off'
 }

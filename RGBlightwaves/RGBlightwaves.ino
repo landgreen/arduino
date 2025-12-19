@@ -5,8 +5,8 @@
 #endif
 
 #define PIN 9
-#define NUM_LEDS 137
-#define BRIGHTNESS 20
+#define NUM_LEDS 50
+#define BRIGHTNESS 80
 
 Adafruit_NeoPixel strip = Adafruit_NeoPixel(NUM_LEDS, PIN, NEO_GRB + NEO_KHZ800);
 
@@ -19,66 +19,63 @@ void setup() {
 strip.show(); // Initialize all pixels to 'off'
 }
 
-int pos = 0;
-_Bool forward = true;
-int width = 128;
-uint8_t wait = 30;
+// int pos = 0;
+// _Bool forward = true;
+// int width = 128;
+// uint8_t wait = 30;
 
 
-void loop() {
-  if (forward) {
-    pos++;
-    for (int i = 0; i < width; i++) {
-      strip.setPixelColor(pos + i, 255 - 10 * i, 0, 0);
-    }
-    strip.setPixelColor(pos - width, 0, 0, 0);
-    if (pos > NUM_LEDS + width) {
-      forward = false;
-    }
-  } else {
-    pos--;
-    for (int i = 0; i < width; i++) {
-      strip.setPixelColor(pos - i, 255 - 10 * i, 0, 0);
-    }
-    strip.setPixelColor(pos + width, 0, 0, 0);
-    if (pos < 0) {
-      forward = true;
-    }
-  }
-  strip.show();
-  delay(wait);
-}
+// void loop() {
+//   if (forward) {
+//     pos++;
+//     for (int i = 0; i < width; i++) {
+//       strip.setPixelColor(pos + i, 255 - 10 * i, 0, 0);
+//     }
+//     strip.setPixelColor(pos - width, 0, 0, 0);
+//     if (pos > NUM_LEDS + width) {
+//       forward = false;
+//     }
+//   } else {
+//     pos--;
+//     for (int i = 0; i < width; i++) {
+//       strip.setPixelColor(pos - i, 255 - 10 * i, 0, 0);
+//     }
+//     strip.setPixelColor(pos + width, 0, 0, 0);
+//     if (pos < 0) {
+//       forward = true;
+//     }
+//   }
+//   strip.show();
+//   delay(wait);
+// }
 
 
 // rainbow wave
-//void loop() {
-//
-//}
+int countBinary = 0;
+int SCALE = 11;
+int GAP = 3;
+void loop() {
+ countBinary++;
+ for (int i = 0; i < 20; i++)
+ {
+   if (bitRead(countBinary, i) == 1)
+   {
+     for (int j = 0; j < SCALE-GAP; j++){
+       strip.setPixelColor(i*SCALE+j, colorRed, colorGreen, colorBlue);
+     }
+   }
+   else
+   {
+     for (int j = 0; j < SCALE-GAP; j++){
+       strip.setPixelColor(i*SCALE+j, 0, 0, 0);
+     }
+   }
+ }
+ strip.show();
+ delay(100);
+}
 
-//
-//int countBinary = 0;
-//int SCALE = 11;
-//int GAP = 3;
-//void loop() {
-//  countBinary++;
-//  for (int i = 0; i < 20; i++)
-//  {
-//    if (bitRead(countBinary, i) == 1)
-//    {
-//      for (int j = 0; j < SCALE-GAP; j++){
-//        strip.setPixelColor(i*SCALE+j, colorRed, colorGreen, colorBlue);
-//      }
-//    }
-//    else
-//    {
-//      for (int j = 0; j < SCALE-GAP; j++){
-//        strip.setPixelColor(i*SCALE+j, 0, 0, 0);
-//      }
-//    }
-//  }
-//  strip.show();
-//  delay(100);
-//}
+
 
 
 
